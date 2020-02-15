@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "ru.falseresync.aofcaveman.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "LevelGeneratorTypeAccessor",
+    "LevelGeneratorTypeMixin",
+    "OverworldDimensionMixin",
+    "PlayerManagerMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

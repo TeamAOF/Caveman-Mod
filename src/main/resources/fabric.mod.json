@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "aof_caveman",
+  "version": "${version}",
+
+  "name": "AOF Caveman",
+  "authors": [
+    "falseresync"
+  ],
+  "contact": {
+    "homepage": "https://github.com/falseresync/aof-caveman-mod",
+    "sources": "https://github.com/falseresync/aof-caveman-mod"
+  },
+
+  "license": "MIT",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "ru.falseresync.aofcaveman.AOFCaveman"
+    ]
+  },
+  "mixins": [
+    "aof-caveman.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.2",
+    "fabric": "*",
+    "minecraft": "1.15.x"
+  }
+}

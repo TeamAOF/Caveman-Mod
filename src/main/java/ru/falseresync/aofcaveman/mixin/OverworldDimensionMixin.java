@@ -1,4 +1,4 @@
-package ru.falseresync.aofcaveman.worldgen.mixin;
+package ru.falseresync.aofcaveman.mixin;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -15,11 +15,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import ru.falseresync.aofcaveman.worldgen.AofCavemanWorldGen;
+import ru.falseresync.aofcaveman.AOFCaveman;
 
-/**
- * @author Valoeghese in ClimaticWorldType
- */
 @Mixin(OverworldDimension.class)
 public abstract class OverworldDimensionMixin extends Dimension {
     public OverworldDimensionMixin(World world, DimensionType type) {
@@ -30,8 +27,8 @@ public abstract class OverworldDimensionMixin extends Dimension {
     public void createChunkGenerator(CallbackInfoReturnable<ChunkGenerator<? extends ChunkGeneratorConfig>> info) {
         LevelGeneratorType type = this.world.getLevelProperties().getGeneratorType();
 
-        if (type == AofCavemanWorldGen.LEVEL_GEN_TYPE) {
-            info.setReturnValue(AofCavemanWorldGen.CHUNK_GEN_TYPE.create(
+        if (type == AOFCaveman.LEVEL_GEN_TYPE) {
+            info.setReturnValue(AOFCaveman.CHUNK_GEN_TYPE.create(
                     this.world,
                     BiomeSourceType.FIXED.applyConfig(BiomeSourceType.FIXED
                             .getConfig(this.world.getLevelProperties())

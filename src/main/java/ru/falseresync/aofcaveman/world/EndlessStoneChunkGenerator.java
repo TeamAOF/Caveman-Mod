@@ -1,4 +1,4 @@
-package ru.falseresync.aofcaveman.worldgen;
+package ru.falseresync.aofcaveman.world;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

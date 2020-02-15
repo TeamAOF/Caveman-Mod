@@ -1,4 +1,4 @@
-package ru.falseresync.aofcaveman.worldgen.mixin;
+package ru.falseresync.aofcaveman.mixin;
 
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.PlayerManager;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import ru.falseresync.aofcaveman.worldgen.AofCavemanWorldGen;
+import ru.falseresync.aofcaveman.AOFCaveman;
 
 import java.util.Random;
 
@@ -27,10 +27,10 @@ public class PlayerManagerMixin {
         if (player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.LEAVE_GAME)) == 0) {
             ServerWorld world = player.getServerWorld();
             LevelProperties levelProperties = world.getLevelProperties();
-            if (levelProperties.getGeneratorType() != AofCavemanWorldGen.LEVEL_GEN_TYPE) return;
+            if (levelProperties.getGeneratorType() != AOFCaveman.LEVEL_GEN_TYPE) return;
 
             StructureManager manager = world.getStructureManager();
-            Structure structure = manager.getStructureOrBlank(AofCavemanWorldGen.SPAWN_ROOM_ID);
+            Structure structure = manager.getStructureOrBlank(AOFCaveman.SPAWN_ROOM_ID);
 
             Random random = new Random();
             int max = (int) ((levelProperties.getBorderSize() / 2) * 0.9);
