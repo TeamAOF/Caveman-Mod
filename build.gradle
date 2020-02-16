@@ -13,11 +13,23 @@ group = project.maven_group
 minecraft {
 }
 
+repositories {
+	maven {
+		name = "Onyx Studios"
+		url = "https://maven.onyxstudios.dev"
+	}
+}
+
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	modApi "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
+	modApi "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-world:${project.cardinal_version}"
+	include "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
+	include "com.github.NerdHubMC.Cardinal-Components-API:cardinal-components-world:${project.cardinal_version}"
 }
 
 processResources {
