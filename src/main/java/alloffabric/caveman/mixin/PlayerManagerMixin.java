@@ -1,4 +1,4 @@
-package ru.falseresync.aofcaveman.mixin;
+package alloffabric.caveman.mixin;
 
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.PlayerManager;
@@ -10,17 +10,17 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import ru.falseresync.aofcaveman.AOFCaveman;
-import ru.falseresync.aofcaveman.world.PlayerRoom;
+import alloffabric.caveman.Caveman;
+import alloffabric.caveman.world.PlayerRoom;
 
 @Mixin(PlayerManager.class)
-public class PlayerManagerMixin {
+public abstract class PlayerManagerMixin {
     @Inject(method = "onPlayerConnect", at = @At("TAIL"))
-    public void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo info) {
+    private void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo info) {
         if (player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.LEAVE_GAME)) == 0) {
             ServerWorld world = player.getServerWorld();
             LevelProperties levelProperties = world.getLevelProperties();
-            if (levelProperties.getGeneratorType() != AOFCaveman.LEVEL_GEN_TYPE) return;
+            if (levelProperties.getGeneratorType() != Caveman.LEVEL_GEN_TYPE) return;
 
             PlayerRoom.create(player, world);
         }

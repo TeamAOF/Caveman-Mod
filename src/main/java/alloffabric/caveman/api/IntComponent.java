@@ -1,4 +1,4 @@
-package ru.falseresync.aofcaveman.api;
+package alloffabric.caveman.api;
 
 import nerdhub.cardinal.components.api.component.Component;
 import net.minecraft.nbt.CompoundTag;

@@ -1,4 +1,4 @@
-package ru.falseresync.aofcaveman.world;
+package alloffabric.caveman.world;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -6,14 +6,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 
 public class EndlessStoneChunkGenerator extends ChunkGenerator<ChunkGeneratorConfig> {
     public EndlessStoneChunkGenerator(IWorld world, BiomeSource biomeSource, ChunkGeneratorConfig config) {
         super(world, biomeSource, config);
+    }
+
+    @Override
+    public void carve(BiomeAccess biomeAccess, Chunk chunk, GenerationStep.Carver carver) {
     }
 
     @Override

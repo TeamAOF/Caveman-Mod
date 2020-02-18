@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ru.falseresync.aofcaveman.world;
+package alloffabric.caveman.world;
 
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;

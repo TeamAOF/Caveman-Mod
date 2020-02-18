@@ -1,4 +1,4 @@
-package ru.falseresync.aofcaveman.world;
+package alloffabric.caveman.world;
 
 import nerdhub.cardinal.components.api.component.ComponentProvider;
 import net.fabricmc.api.EnvType;
@@ -11,18 +11,18 @@ import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import ru.falseresync.aofcaveman.AOFCaveman;
-import ru.falseresync.aofcaveman.api.IntComponent;
+import alloffabric.caveman.Caveman;
+import alloffabric.caveman.api.IntComponent;
 
 public class PlayerRoom {
     public static void create(ServerPlayerEntity player, ServerWorld world) {
-        IntComponent counter = ComponentProvider.fromWorld(world).getComponent(AOFCaveman.ROOM_COUNTER);
+        IntComponent counter = ComponentProvider.fromWorld(world).getComponent(Caveman.ROOM_COUNTER);
         if (counter == null) {
             throw new IllegalStateException("Given world doesn't have the room counter component attached!");
         }
 
         StructureManager manager = world.getStructureManager();
-        Structure structure = manager.getStructureOrBlank(AOFCaveman.SPAWN_ROOM_ID);
+        Structure structure = manager.getStructureOrBlank(Caveman.SPAWN_ROOM_ID);
 
         BlockPos roomPos = calculatePos(counter.getValue());
         BlockPos spawnPos = roomPos.add(structure.getSize().getX() / 2, 1, structure.getSize().getZ() / 2);
@@ -89,7 +89,8 @@ public class PlayerRoom {
                     break;
             }
 
-            return new BlockPos(x * 1000, 64, z * 1000);
+            int spacing = Caveman.config.playerRooms.spacing;
+            return new BlockPos(x * spacing, 64, z * spacing);
         }
     }
 }

@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "id": "aof_caveman",
+  "id": "caveman",
   "version": "${version}",
 
-  "name": "AOF Caveman",
+  "name": "Caveman",
   "authors": [
     "falseresync"
   ],
   "contact": {
-    "homepage": "https://github.com/falseresync/aof-caveman-mod",
-    "sources": "https://github.com/falseresync/aof-caveman-mod"
+    "homepage": "https://github.com/AllOfFabric/Caveman",
+    "sources": "https://github.com/AllOfFabric/Caveman"
   },
 
   "license": "MIT",
@@ -17,16 +17,18 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "ru.falseresync.aofcaveman.AOFCaveman"
+      "alloffabric.caveman.Caveman"
     ]
   },
   "mixins": [
-    "aof-caveman.mixins.json"
+    "caveman.mixins.json"
   ],
 
   "depends": {
+    "autoconfig1u": "*",
     "cardinal-components-base": "*",
     "cardinal-components-world": "*",
+    "cloth-config2": ">=1.8",
     "fabricloader": ">=0.7.2",
     "fabric": "*",
     "minecraft": ">=1.15"

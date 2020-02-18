@@ -1,14 +1,14 @@
-package ru.falseresync.aofcaveman.component;
+package alloffabric.caveman.component;
 
 import nerdhub.cardinal.components.api.ComponentType;
 import nerdhub.cardinal.components.api.util.sync.WorldSyncedComponent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import ru.falseresync.aofcaveman.AOFCaveman;
-import ru.falseresync.aofcaveman.api.IntComponent;
+import alloffabric.caveman.Caveman;
+import alloffabric.caveman.api.IntComponent;
 
 public class RoomCounterComponent implements IntComponent, WorldSyncedComponent {
-    public static final Identifier ID = new Identifier(AOFCaveman.MODID, "room_counter");
+    public static final Identifier ID = new Identifier(Caveman.MODID, "room_counter");
 
     private final World world;
     private int value = 0;
@@ -39,6 +39,6 @@ public class RoomCounterComponent implements IntComponent, WorldSyncedComponent 
 
     @Override
     public ComponentType<IntComponent> getComponentType() {
-        return AOFCaveman.ROOM_COUNTER;
+        return Caveman.ROOM_COUNTER;
     }
 }

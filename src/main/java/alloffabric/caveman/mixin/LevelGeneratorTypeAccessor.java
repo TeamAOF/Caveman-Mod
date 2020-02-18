@@ -1,4 +1,4 @@
-package ru.falseresync.aofcaveman.mixin;
+package alloffabric.caveman.mixin;
 
 import net.minecraft.world.level.LevelGeneratorType;
 import org.spongepowered.asm.mixin.Mixin;
