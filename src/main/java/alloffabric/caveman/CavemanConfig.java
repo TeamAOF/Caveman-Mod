@@ -14,8 +14,8 @@ public class CavemanConfig implements ConfigData {
     }
 
     public static class TimedSpawners {
-        public boolean defaultBehavior = true;
-        public int defaultEntitiesLimit = 1;
+        public boolean defaultBehavior = false;
+        public int defaultEntitiesLimit = 100;
         public String defaultLootTable = "caveman:spawner";
     }
 }

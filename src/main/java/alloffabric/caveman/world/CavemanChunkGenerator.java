@@ -65,8 +65,4 @@ public class CavemanChunkGenerator extends ChunkGenerator<ChunkGeneratorConfig> 
     public int getHeightOnGround(int x, int z, Heightmap.Type heightmapType) {
         return 64;
     }
-
-    @Override
-    public void generateFeatures(ChunkRegion region) {
-    }
 }
