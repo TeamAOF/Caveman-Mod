@@ -3,9 +3,8 @@ package alloffabric.caveman;
 import alloffabric.caveman.api.IntComponent;
 import alloffabric.caveman.command.TimedSpawnerCommand;
 import alloffabric.caveman.component.RoomCounterComponent;
-import alloffabric.caveman.impl.SpawnerLogicHelper;
 import alloffabric.caveman.mixin.LevelGeneratorTypeAccessor;
-import alloffabric.caveman.world.EndlessStoneChunkGenerator;
+import alloffabric.caveman.world.CavemanChunkGenerator;
 import alloffabric.caveman.world.FabricChunkGeneratorType;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.Toml4jConfigSerializer;
@@ -24,7 +23,7 @@ public class Caveman implements ModInitializer {
     public static final String GENERATOR_NAME;
     public static final Identifier GENERATOR_ID;
     public static LevelGeneratorType LEVEL_GEN_TYPE;
-    public static ChunkGeneratorType<ChunkGeneratorConfig, EndlessStoneChunkGenerator> CHUNK_GEN_TYPE;
+    public static ChunkGeneratorType<ChunkGeneratorConfig, CavemanChunkGenerator> CHUNK_GEN_TYPE;
     public static ComponentType<IntComponent> ROOM_COUNTER;
     public static CavemanConfig config;
 
@@ -36,7 +35,7 @@ public class Caveman implements ModInitializer {
         LEVEL_GEN_TYPE = LevelGeneratorTypeAccessor.create(9, GENERATOR_NAME);
         CHUNK_GEN_TYPE = FabricChunkGeneratorType.register(
                 GENERATOR_ID,
-                EndlessStoneChunkGenerator::new,
+                CavemanChunkGenerator::new,
                 ChunkGeneratorConfig::new,
                 false);
         ROOM_COUNTER = ComponentRegistry.INSTANCE

@@ -13,8 +13,8 @@ import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 
-public class EndlessStoneChunkGenerator extends ChunkGenerator<ChunkGeneratorConfig> {
-    public EndlessStoneChunkGenerator(IWorld world, BiomeSource biomeSource, ChunkGeneratorConfig config) {
+public class CavemanChunkGenerator extends ChunkGenerator<ChunkGeneratorConfig> {
+    public CavemanChunkGenerator(IWorld world, BiomeSource biomeSource, ChunkGeneratorConfig config) {
         super(world, biomeSource, config);
     }
 
