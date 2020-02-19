@@ -9,6 +9,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructurePlacementData;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import alloffabric.caveman.Caveman;
@@ -22,25 +23,28 @@ public class PlayerRoom {
         }
 
         StructureManager manager = world.getStructureManager();
-        Structure structure = manager.getStructureOrBlank(Caveman.SPAWN_ROOM_ID);
+        Structure structure = manager.getStructureOrBlank(new Identifier(Caveman.config.playerRooms.structureId));
 
         BlockPos roomPos = calculatePos(counter.getValue());
-        BlockPos spawnPos = roomPos.add(structure.getSize().getX() / 2, 1, structure.getSize().getZ() / 2);
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER || counter.getValue() == 0) {
+            structure.place(world, roomPos, new StructurePlacementData());
+            counter.increment();
+        }
 
-        structure.place(world, roomPos, new StructurePlacementData());
+        BlockPos anchorPos = roomPos.add(structure.getSize().getX() / 2, 1, structure.getSize().getZ() / 2);
+        anchorPlayer(player, world, anchorPos);
+    }
+
+    public static void anchorPlayer(ServerPlayerEntity player, ServerWorld world, BlockPos pos) {
         world.getChunkManager().addTicket(
                 ChunkTicketType.POST_TELEPORT,
-                new ChunkPos(spawnPos),
+                new ChunkPos(pos),
                 10, // => radius = 33 - it
                 player.getEntityId()
         );
-        player.setPlayerSpawn(spawnPos, true, false);
+        player.setPlayerSpawn(pos, true, false);
         player.networkHandler.requestTeleport(
-                spawnPos.getX() + 0.5, spawnPos.getY(), spawnPos.getZ() + 0.5, player.yaw, player.pitch);
-
-        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER) {
-            counter.increment();
-        }
+                pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, player.yaw, player.pitch);
     }
 
     public static BlockPos calculatePos(int roomNumber) {

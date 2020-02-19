@@ -1,7 +1,9 @@
 package alloffabric.caveman;
 
 import alloffabric.caveman.api.IntComponent;
+import alloffabric.caveman.command.TimedSpawnerCommand;
 import alloffabric.caveman.component.RoomCounterComponent;
+import alloffabric.caveman.impl.SpawnerLogicHelper;
 import alloffabric.caveman.mixin.LevelGeneratorTypeAccessor;
 import alloffabric.caveman.world.EndlessStoneChunkGenerator;
 import alloffabric.caveman.world.FabricChunkGeneratorType;
@@ -11,6 +13,7 @@ import nerdhub.cardinal.components.api.ComponentRegistry;
 import nerdhub.cardinal.components.api.ComponentType;
 import nerdhub.cardinal.components.api.event.WorldComponentCallback;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.registry.CommandRegistry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 import net.minecraft.world.gen.chunk.ChunkGeneratorType;
@@ -20,7 +23,6 @@ public class Caveman implements ModInitializer {
     public static final String MODID = "caveman";
     public static final String GENERATOR_NAME;
     public static final Identifier GENERATOR_ID;
-    public static final Identifier SPAWN_ROOM_ID;
     public static LevelGeneratorType LEVEL_GEN_TYPE;
     public static ChunkGeneratorType<ChunkGeneratorConfig, EndlessStoneChunkGenerator> CHUNK_GEN_TYPE;
     public static ComponentType<IntComponent> ROOM_COUNTER;
@@ -40,11 +42,12 @@ public class Caveman implements ModInitializer {
         ROOM_COUNTER = ComponentRegistry.INSTANCE
                 .registerIfAbsent(RoomCounterComponent.ID, IntComponent.class)
                 .attach(WorldComponentCallback.EVENT, RoomCounterComponent::new);
+
+        CommandRegistry.INSTANCE.register(false, TimedSpawnerCommand::register);
     }
 
     static {
-        GENERATOR_NAME = "endless_stone";
+        GENERATOR_NAME = "caveman";
         GENERATOR_ID = new Identifier(MODID, GENERATOR_NAME);
-        SPAWN_ROOM_ID = new Identifier(MODID, "spawn_room");
     }
 }

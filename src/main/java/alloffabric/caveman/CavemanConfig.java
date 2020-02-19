@@ -10,6 +10,7 @@ public class CavemanConfig implements ConfigData {
 
     public static class PlayerRooms {
         public int spacing = 1000;
+        public String structureId = "caveman:spawn_room";
     }
 
     public static class TimedSpawners {

@@ -14,7 +14,7 @@ import alloffabric.caveman.Caveman;
 import alloffabric.caveman.world.PlayerRoom;
 
 @Mixin(PlayerManager.class)
-public abstract class PlayerManagerMixin {
+public class PlayerManagerMixin {
     @Inject(method = "onPlayerConnect", at = @At("TAIL"))
     private void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo info) {
         if (player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.LEAVE_GAME)) == 0) {

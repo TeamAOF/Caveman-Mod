@@ -1,7 +1,7 @@
 package alloffabric.caveman.mixin;
 
 import alloffabric.caveman.Caveman;
-import alloffabric.caveman.api.MobSpawnerLogicHelper;
+import alloffabric.caveman.impl.SpawnerLogicHelper;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
@@ -20,65 +20,72 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Random;
 
 @Mixin(MobSpawnerLogic.class)
-public abstract class MobSpawnerLogicMixin implements MobSpawnerLogicHelper {
-    private static final Identifier TIMED = new Identifier(Caveman.MODID, "timed");
-    private static final Identifier SPAWNED_ENTITIES_ID = new Identifier(Caveman.MODID, "spawned_entities");
-    private boolean behaviorEnabled;
-    private int entitiesLimit;
-    private Identifier lootTable;
-    private int spawnedEntities;
-
-    // WHEN OUT OF THE CONSTRUCTOR THIS WORKS
-    private MobSpawnerLogicMixin() {
-        this.behaviorEnabled = Caveman.config.timedSpawners.defaultBehavior;
-        this.entitiesLimit = Caveman.config.timedSpawners.defaultEntitiesLimit;
-        this.lootTable = new Identifier(Caveman.config.timedSpawners.defaultLootTable);
-        this.spawnedEntities = 0;
-    }
+public class MobSpawnerLogicMixin implements SpawnerLogicHelper {
+    // How to clean those up?
+    // Perfectly they would only be the declarations,
+    // while the initialisation will happen somewhere else
+    // like in a constructor
+    private boolean behaviorEnabled = Caveman.config.timedSpawners.defaultBehavior;
+    private int entitiesLimit = Caveman.config.timedSpawners.defaultEntitiesLimit;
+    private Identifier lootTable = new Identifier(Caveman.config.timedSpawners.defaultLootTable);
+    private int spawnedEntities = 0;
 
     @Inject(method = "spawnEntity", at = @At("RETURN"))
     private void spawnEntity(Entity entity, CallbackInfo info) {
-        MobSpawnerLogic logic = (MobSpawnerLogic)(Object) this;
-        World world = logic.getWorld();
-        BlockPos pos = logic.getPos();
-        this.incrementSpawnedEntities();
-        if (this.hadEntityLimitPassed()) {
-            world.setBlockState(pos, Blocks.CHEST.getDefaultState());
-            BlockEntity chest = world.getBlockEntity(pos);
-            if (chest instanceof ChestBlockEntity) {
-                ((ChestBlockEntity) chest).setLootTable(this.lootTable, new Random().nextLong());
-                world.updateNeighbors(pos, world.getBlockState(pos).getBlock());
+        if (this.behaviorEnabled) {
+            MobSpawnerLogic logic = (MobSpawnerLogic) (Object) this;
+            World world = logic.getWorld();
+            BlockPos pos = logic.getPos();
+            this.spawnedEntities += 1;
+            if (this.spawnedEntities > this.entitiesLimit) {
+                world.setBlockState(pos, Blocks.CHEST.getDefaultState());
+                BlockEntity chest = world.getBlockEntity(pos);
+                if (chest instanceof ChestBlockEntity) {
+                    ((ChestBlockEntity) chest).setLootTable(this.lootTable, new Random().nextLong());
+                    world.updateNeighbors(pos, world.getBlockState(pos).getBlock());
+                }
             }
         }
     }
 
     @Inject(method = "deserialize", at = @At("RETURN"))
-    private void deserialize(CompoundTag tag, CallbackInfo info) {
-        this.setSpawnedEntities(tag.getInt(SPAWNED_ENTITIES_ID.toString()));
+    private void deserialize(CompoundTag outerTag, CallbackInfo info) {
+        // Type 10 for CompoundTag
+        if (outerTag.contains(Caveman.MODID, 10)) {
+            CompoundTag tag = outerTag.getCompound(Caveman.MODID);
+            this.behaviorEnabled = tag.getBoolean("behaviorEnabled");
+            if (this.behaviorEnabled) {
+                this.entitiesLimit = tag.getInt("entitiesLimit");
+                this.lootTable = new Identifier(tag.getString("lootTable"));
+                this.spawnedEntities = tag.getInt("spawnedEntities");
+            }
+        }
     }
 
     @Inject(method = "serialize", at = @At("RETURN"))
-    private void serialize(CompoundTag tag, CallbackInfoReturnable<CompoundTag> info) {
-        tag.putInt(SPAWNED_ENTITIES_ID.toString(), this.getSpawnedEntities());
+    private void serialize(CompoundTag outerTag, CallbackInfoReturnable<CompoundTag> info) {
+        CompoundTag tag = new CompoundTag();
+        tag.putBoolean("behaviorEnabled", this.behaviorEnabled);
+        if (this.behaviorEnabled) {
+             tag.putInt("entitiesLimit", this.entitiesLimit);
+             tag.putString("lootTable", this.lootTable.toString());
+             tag.putInt("spawnedEntities", this.spawnedEntities);
+        }
+        outerTag.put(Caveman.MODID, tag);
     }
 
     @Override
-    public void incrementSpawnedEntities() {
-        this.spawnedEntities += 1;
+    public void setBehaviorEnabled(boolean enabled) {
+        this.behaviorEnabled = enabled;
     }
 
     @Override
-    public void setSpawnedEntities(int number) {
-        this.spawnedEntities = number;
+    public void setEntitiesLimit(int limit) {
+        this.entitiesLimit = limit;
     }
 
     @Override
-    public int getSpawnedEntities() {
-        return this.spawnedEntities;
-    }
-
-    @Override
-    public boolean hadEntityLimitPassed() {
-        return this.entitiesLimit < spawnedEntities;
+    public void setLootTable(Identifier id) {
+        this.lootTable = id;
     }
 }
