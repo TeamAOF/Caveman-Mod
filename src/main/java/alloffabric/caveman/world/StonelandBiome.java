@@ -7,6 +7,9 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.decorator.Decorator;
+import net.minecraft.world.gen.decorator.DecoratorConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.MineshaftFeature;
@@ -39,14 +42,19 @@ public class StonelandBiome extends Biome {
             .temperature(0.8F)
         );
 
+        this.addStructureFeature(Caveman.MINI_DUNGEON_FEATURE.configure(FeatureConfig.DEFAULT));
+        this.addFeature(GenerationStep.Feature.UNDERGROUND_STRUCTURES, Caveman.MINI_DUNGEON_FEATURE
+            .configure(FeatureConfig.DEFAULT)
+            .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
+        );
+
         this.addStructureFeature(Feature.MINESHAFT.configure(new MineshaftFeatureConfig(
-            0.04D,
+            0.008D,
             MineshaftFeature.Type.NORMAL
         )));
-        this.addStructureFeature(Caveman.MINI_DUNGEON_FEATURE.configure(FeatureConfig.DEFAULT));
         this.addStructureFeature(Feature.STRONGHOLD.configure(FeatureConfig.DEFAULT));
 
-        DefaultBiomeFeatures.addClay(this);
+        DefaultBiomeFeatures.addDefaultStructures(this);
         DefaultBiomeFeatures.addDungeons(this);
         DefaultBiomeFeatures.addFossils(this);
         DefaultBiomeFeatures.addMineables(this);

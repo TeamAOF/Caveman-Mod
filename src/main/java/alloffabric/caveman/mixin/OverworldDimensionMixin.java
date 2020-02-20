@@ -1,6 +1,7 @@
 package alloffabric.caveman.mixin;
 
 import alloffabric.caveman.Caveman;
+import alloffabric.caveman.world.CavemanChunkGeneratorConfig;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.source.BiomeSourceType;
 import net.minecraft.world.dimension.Dimension;
@@ -28,7 +29,7 @@ public abstract class OverworldDimensionMixin extends Dimension {
                     .getConfig(this.world.getLevelProperties())
                     .setBiome(Caveman.STONELAND_BIOME)
                 ),
-                new ChunkGeneratorConfig()
+                new CavemanChunkGeneratorConfig()
             ));
         }
     }

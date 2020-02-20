@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import alloffabric.caveman.Caveman;
-import alloffabric.caveman.api.IntComponent;
+import alloffabric.caveman.component.IntComponent;
 
 public class PlayerRoom {
     public static void create(ServerPlayerEntity player, ServerWorld world) {

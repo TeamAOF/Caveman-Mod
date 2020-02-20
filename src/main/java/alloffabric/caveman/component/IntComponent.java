@@ -1,4 +1,4 @@
-package alloffabric.caveman.api;
+package alloffabric.caveman.component;
 
 import nerdhub.cardinal.components.api.component.Component;
 import net.minecraft.nbt.CompoundTag;

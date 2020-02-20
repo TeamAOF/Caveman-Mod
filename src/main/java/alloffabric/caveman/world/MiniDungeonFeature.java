@@ -1,9 +1,8 @@
 package alloffabric.caveman.world;
 
 import alloffabric.caveman.Caveman;
+import alloffabric.caveman.structure.MiniDungeonGenerator;
 import com.mojang.datafixers.Dynamic;
-import net.minecraft.structure.JungleTempleGenerator;
-import net.minecraft.structure.NetherFossilGenerator;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.util.math.BlockBox;
@@ -49,7 +48,7 @@ public class MiniDungeonFeature extends AbstractTempleFeature<DefaultFeatureConf
         public void initialize(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int x, int z, Biome biome) {
             int i = x * 16;
             int j = z * 16;
-            NetherFossilGenerator.addPieces(
+            MiniDungeonGenerator.addPieces(
                 structureManager,
                 this.children,
                 this.random,

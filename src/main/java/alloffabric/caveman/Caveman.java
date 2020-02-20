@@ -1,20 +1,18 @@
 package alloffabric.caveman;
 
-import alloffabric.caveman.api.IntComponent;
+import alloffabric.caveman.component.IntComponent;
 import alloffabric.caveman.command.TimedSpawnerCommand;
 import alloffabric.caveman.component.RoomCounterComponent;
 import alloffabric.caveman.mixin.LevelGeneratorTypeAccessor;
 import alloffabric.caveman.structure.MiniDungeonGenerator;
-import alloffabric.caveman.world.CavemanChunkGenerator;
-import alloffabric.caveman.world.FabricChunkGeneratorType;
-import alloffabric.caveman.world.MiniDungeonFeature;
-import alloffabric.caveman.world.StonelandBiome;
+import alloffabric.caveman.world.*;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.Toml4jConfigSerializer;
 import nerdhub.cardinal.components.api.ComponentRegistry;
 import nerdhub.cardinal.components.api.ComponentType;
 import nerdhub.cardinal.components.api.event.WorldComponentCallback;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.biomes.v1.FabricBiomes;
 import net.fabricmc.fabric.api.registry.CommandRegistry;
 import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
@@ -31,7 +29,7 @@ public class Caveman implements ModInitializer {
     public static final String GENERATOR_NAME;
     public static final Identifier GENERATOR_ID;
     public static LevelGeneratorType LEVEL_GEN_TYPE;
-    public static ChunkGeneratorType<ChunkGeneratorConfig, CavemanChunkGenerator> CHUNK_GEN_TYPE;
+    public static ChunkGeneratorType<CavemanChunkGeneratorConfig, CavemanChunkGenerator> CHUNK_GEN_TYPE;
     public static ComponentType<IntComponent> ROOM_COUNTER;
     public static CavemanConfig config;
     public static StructurePieceType MINI_DUNGEON_PIECE;
@@ -47,7 +45,7 @@ public class Caveman implements ModInitializer {
         CHUNK_GEN_TYPE = FabricChunkGeneratorType.register(
                 GENERATOR_ID,
                 CavemanChunkGenerator::new,
-                ChunkGeneratorConfig::new,
+                CavemanChunkGeneratorConfig::new,
                 false);
         ROOM_COUNTER = ComponentRegistry.INSTANCE
                 .registerIfAbsent(RoomCounterComponent.ID, IntComponent.class)
@@ -72,6 +70,7 @@ public class Caveman implements ModInitializer {
             new Identifier(MODID, "stoneland"),
             new StonelandBiome()
         );
+        FabricBiomes.addSpawnBiome(STONELAND_BIOME);
     }
 
     static {

@@ -5,7 +5,6 @@ import nerdhub.cardinal.components.api.util.sync.WorldSyncedComponent;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import alloffabric.caveman.Caveman;
-import alloffabric.caveman.api.IntComponent;
 
 public class RoomCounterComponent implements IntComponent, WorldSyncedComponent {
     public static final Identifier ID = new Identifier(Caveman.MODID, "room_counter");
