@@ -1,4 +1,4 @@
-package alloffabric.caveman.world;
+package alloffabric.caveman.world.chunk;
 
 import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 

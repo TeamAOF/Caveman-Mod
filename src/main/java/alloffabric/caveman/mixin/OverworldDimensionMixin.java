@@ -1,7 +1,7 @@
 package alloffabric.caveman.mixin;
 
 import alloffabric.caveman.Caveman;
-import alloffabric.caveman.world.CavemanChunkGeneratorConfig;
+import alloffabric.caveman.world.chunk.CavemanChunkGeneratorConfig;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.source.BiomeSourceType;
 import net.minecraft.world.dimension.Dimension;

@@ -1,4 +1,4 @@
-package alloffabric.caveman.world;
+package alloffabric.caveman.world.chunk;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -11,7 +11,6 @@ import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 
 public class CavemanChunkGenerator extends ChunkGenerator<CavemanChunkGeneratorConfig> {
     public CavemanChunkGenerator(IWorld world, BiomeSource biomeSource, CavemanChunkGeneratorConfig config) {

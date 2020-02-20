@@ -1,4 +1,4 @@
-package alloffabric.caveman.world;
+package alloffabric.caveman.world.feature;
 
 import alloffabric.caveman.Caveman;
 import alloffabric.caveman.structure.MiniDungeonGenerator;
@@ -8,21 +8,22 @@ import net.minecraft.structure.StructureStart;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.feature.AbstractTempleFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
+import java.util.Random;
 import java.util.function.Function;
 
-public class MiniDungeonFeature extends AbstractTempleFeature<DefaultFeatureConfig> {
+public class MiniDungeonFeature extends StructureFeature<DefaultFeatureConfig> {
     public MiniDungeonFeature(Function<Dynamic<?>, ? extends DefaultFeatureConfig> configFactory) {
         super(configFactory);
     }
 
     @Override
-    protected int getSeedModifier() {
-        return 0;
+    public boolean shouldStartAt(BiomeAccess biomeAccess, ChunkGenerator<?> generator, Random random, int chunkX, int chunkZ, Biome biome) {
+        return true;
     }
 
     @Override

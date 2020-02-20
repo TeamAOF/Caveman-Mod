@@ -1,4 +1,4 @@
-package alloffabric.caveman.world;
+package alloffabric.caveman.world.biome;
 
 import alloffabric.caveman.Caveman;
 import com.google.common.collect.ImmutableList;
