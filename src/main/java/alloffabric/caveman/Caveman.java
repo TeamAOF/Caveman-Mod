@@ -8,6 +8,7 @@ import alloffabric.caveman.structure.MiniDungeonGenerator;
 import alloffabric.caveman.world.CavemanChunkGenerator;
 import alloffabric.caveman.world.FabricChunkGeneratorType;
 import alloffabric.caveman.world.MiniDungeonFeature;
+import alloffabric.caveman.world.StonelandBiome;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.Toml4jConfigSerializer;
 import nerdhub.cardinal.components.api.ComponentRegistry;
@@ -21,6 +22,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 import net.minecraft.world.gen.chunk.ChunkGeneratorType;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.level.LevelGeneratorType;
 
@@ -34,6 +36,7 @@ public class Caveman implements ModInitializer {
     public static CavemanConfig config;
     public static StructurePieceType MINI_DUNGEON_PIECE;
     public static StructureFeature<DefaultFeatureConfig> MINI_DUNGEON_FEATURE;
+    public static StonelandBiome STONELAND_BIOME;
 
     @Override
     public void onInitialize() {
@@ -61,6 +64,13 @@ public class Caveman implements ModInitializer {
             Registry.STRUCTURE_FEATURE,
             new Identifier(MODID, "mini_dungeon"),
             new MiniDungeonFeature(DefaultFeatureConfig::deserialize)
+        );
+        Feature.STRUCTURES.put(MODID + ":mini_dungeon", MINI_DUNGEON_FEATURE);
+
+        STONELAND_BIOME = Registry.register(
+            Registry.BIOME,
+            new Identifier(MODID, "stoneland"),
+            new StonelandBiome()
         );
     }
 

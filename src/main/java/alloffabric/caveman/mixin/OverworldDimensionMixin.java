@@ -2,14 +2,12 @@ package alloffabric.caveman.mixin;
 
 import alloffabric.caveman.Caveman;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.source.BiomeSourceType;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.dimension.OverworldDimension;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
-import net.minecraft.world.level.LevelGeneratorType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,16 +21,14 @@ public abstract class OverworldDimensionMixin extends Dimension {
 
     @Inject(method = "createChunkGenerator", at = @At("HEAD"), cancellable = true)
     public void createChunkGenerator(CallbackInfoReturnable<ChunkGenerator<? extends ChunkGeneratorConfig>> info) {
-        LevelGeneratorType type = this.world.getLevelProperties().getGeneratorType();
-
-        if (type == Caveman.LEVEL_GEN_TYPE) {
+        if (this.world.getLevelProperties().getGeneratorType() == Caveman.LEVEL_GEN_TYPE) {
             info.setReturnValue(Caveman.CHUNK_GEN_TYPE.create(
-                    this.world,
-                    BiomeSourceType.FIXED.applyConfig(BiomeSourceType.FIXED
-                            .getConfig(this.world.getLevelProperties())
-                            .setBiome(Biomes.PLAINS)
-                    ),
-                    new ChunkGeneratorConfig()
+                this.world,
+                BiomeSourceType.FIXED.applyConfig(BiomeSourceType.FIXED
+                    .getConfig(this.world.getLevelProperties())
+                    .setBiome(Caveman.STONELAND_BIOME)
+                ),
+                new ChunkGeneratorConfig()
             ));
         }
     }
