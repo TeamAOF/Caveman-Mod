@@ -10,17 +10,18 @@ import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class MiniDungeonGenerator {
-    private static final Identifier[] DUNGEONS = new Identifier[] {
-        new Identifier(Caveman.MODID, "mini_dungeon_0")
-    };
+    private static final List<Identifier> DUNGEONS = Arrays.stream(Caveman.config.miniDungeons.structures)
+        .map(Identifier::new).collect(Collectors.toList());
 
     public static void addPieces(StructureManager manager, List<StructurePiece> pieces, Random random, BlockPos pos) {
         BlockRotation blockRotation = BlockRotation.random(random);
-        pieces.add(new Piece(manager, DUNGEONS[random.nextInt(DUNGEONS.length)], pos, blockRotation));
+        pieces.add(new Piece(manager, DUNGEONS.get(random.nextInt(DUNGEONS.size())), pos, blockRotation));
     }
 
     public static class Piece extends SimpleStructurePiece {

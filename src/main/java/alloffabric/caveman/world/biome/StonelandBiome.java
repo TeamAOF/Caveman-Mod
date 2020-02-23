@@ -49,7 +49,7 @@ public class StonelandBiome extends Biome {
         );
 
         this.addStructureFeature(Feature.MINESHAFT.configure(new MineshaftFeatureConfig(
-            0.008D,
+            0.016 * Caveman.config.vanillaTweaks.mineshaftsCommonness,
             MineshaftFeature.Type.NORMAL
         )));
         this.addStructureFeature(Feature.STRONGHOLD.configure(FeatureConfig.DEFAULT));

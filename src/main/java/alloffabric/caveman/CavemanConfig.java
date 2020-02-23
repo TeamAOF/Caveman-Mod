@@ -5,8 +5,14 @@ import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
 
 @Config(name = Caveman.MODID)
 public class CavemanConfig implements ConfigData {
+    public VanillaTweaks vanillaTweaks = new VanillaTweaks();
     public PlayerRooms playerRooms = new PlayerRooms();
     public TimedSpawners timedSpawners = new TimedSpawners();
+    public MiniDungeons miniDungeons = new MiniDungeons();
+
+    public static class VanillaTweaks {
+        public double mineshaftsCommonness = 0.25;
+    }
 
     public static class PlayerRooms {
         public int spacing = 1000;
@@ -17,5 +23,10 @@ public class CavemanConfig implements ConfigData {
         public boolean defaultBehavior = false;
         public int defaultEntitiesLimit = 100;
         public String defaultLootTable = "caveman:spawner";
+    }
+
+    public static class MiniDungeons {
+        public String[] structures = new String[] { "caveman:mini_dungeon_0" };
+        public double commonness = 0.25;
     }
 }
