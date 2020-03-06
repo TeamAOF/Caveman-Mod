@@ -23,7 +23,7 @@ public class PlayerRoom {
         }
 
         StructureManager manager = world.getStructureManager();
-        Structure structure = manager.getStructureOrBlank(new Identifier(Caveman.config.playerRooms.structureId));
+        Structure structure = manager.getStructureOrBlank(new Identifier(Caveman.CONFIG.playerRooms.structureId));
 
         BlockPos roomPos = calculatePos(counter.getValue());
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER || counter.getValue() == 0) {
@@ -93,7 +93,7 @@ public class PlayerRoom {
                     break;
             }
 
-            int spacing = Caveman.config.playerRooms.spacing;
+            int spacing = Caveman.CONFIG.playerRooms.spacing;
             return new BlockPos(x * spacing, 64, z * spacing);
         }
     }

@@ -19,9 +19,13 @@ repositories {
 		url = "https://maven.onyxstudios.dev"
 	}
 	maven {
-		url = 'https://jitpack.io'
+		name = "JitPack"
+		url = "https://jitpack.io"
 	}
-	maven { url "https://dl.bintray.com/shedaniel/autoconfig1u/" }
+	maven {
+		name = "Cotton"
+		url = "http://server.bbkr.space:8081/artifactory/libs-release/"
+	}
 }
 
 dependencies {
@@ -30,14 +34,18 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modApi "com.github.OnyxStudios:Cardinal-Components-API:${project.cardinal_version}"
-	include "com.github.OnyxStudios:Cardinal-Components-API:${project.cardinal_version}"
+	modApi "com.github.OnyxStudios.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
+	modApi "com.github.OnyxStudios.Cardinal-Components-API:cardinal-components-world:${project.cardinal_version}"
+	include "com.github.OnyxStudios.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
+	include "com.github.OnyxStudios.Cardinal-Components-API:cardinal-components-world:${project.cardinal_version}"
 
-	modImplementation "me.sargunvohra.mcmods:autoconfig1u:${project.auto_config_version}"
-	include "me.sargunvohra.mcmods:autoconfig1u:${project.auto_config_version}"
+	modImplementation "io.github.cottonmc:Jankson-Fabric:${project.jankson_version}"
+	include "io.github.cottonmc:Jankson-Fabric:${project.jankson_version}"
 
-	modImplementation "me.shedaniel.cloth:config-2:${project.cloth_config_version}"
-	include "me.shedaniel.cloth:config-2:${project.cloth_config_version}"
+	modRuntime "io.github.prospector:modmenu:${project.modmenu_version}"
+	modRuntime ("me.shedaniel:RoughlyEnoughItems:${project.rei_version}") {
+		exclude group: "io.github.prospector", module: "modmenu"
+	}
 }
 
 processResources {

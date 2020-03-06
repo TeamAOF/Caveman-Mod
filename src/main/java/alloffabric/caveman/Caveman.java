@@ -10,8 +10,6 @@ import alloffabric.caveman.world.chunk.CavemanChunkGenerator;
 import alloffabric.caveman.world.chunk.CavemanChunkGeneratorConfig;
 import alloffabric.caveman.world.chunk.FabricChunkGeneratorType;
 import alloffabric.caveman.world.feature.MiniDungeonFeature;
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.Toml4jConfigSerializer;
 import nerdhub.cardinal.components.api.ComponentRegistry;
 import nerdhub.cardinal.components.api.ComponentType;
 import nerdhub.cardinal.components.api.event.WorldComponentCallback;
@@ -27,22 +25,22 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.level.LevelGeneratorType;
 
+
 public class Caveman implements ModInitializer {
-    public static final String MODID = "caveman";
+    public static final String MOD_ID = "caveman";
     public static final String GENERATOR_NAME;
     public static final Identifier GENERATOR_ID;
     public static LevelGeneratorType LEVEL_GEN_TYPE;
     public static ChunkGeneratorType<CavemanChunkGeneratorConfig, CavemanChunkGenerator> CHUNK_GEN_TYPE;
     public static ComponentType<IntComponent> ROOM_COUNTER;
-    public static CavemanConfig config;
+    public static CavemanConfig CONFIG;
     public static StructurePieceType MINI_DUNGEON_PIECE;
     public static StructureFeature<DefaultFeatureConfig> MINI_DUNGEON_FEATURE;
     public static StonelandBiome STONELAND_BIOME;
 
     @Override
     public void onInitialize() {
-        AutoConfig.register(CavemanConfig.class, Toml4jConfigSerializer::new);
-        config = AutoConfig.getConfigHolder(CavemanConfig.class).getConfig();
+        CONFIG = ConfigManager.loadConfig(CavemanConfig.class, MOD_ID);
 
         LEVEL_GEN_TYPE = LevelGeneratorTypeAccessor.create(9, GENERATOR_NAME);
         CHUNK_GEN_TYPE = FabricChunkGeneratorType.register(
@@ -58,19 +56,19 @@ public class Caveman implements ModInitializer {
 
         MINI_DUNGEON_PIECE = Registry.register(
             Registry.STRUCTURE_PIECE,
-            new Identifier(MODID, "mini_dungeon"),
+            new Identifier(MOD_ID, "mini_dungeon"),
             MiniDungeonGenerator.Piece::new
         );
         MINI_DUNGEON_FEATURE = Registry.register(
             Registry.STRUCTURE_FEATURE,
-            new Identifier(MODID, "mini_dungeon"),
+            new Identifier(MOD_ID, "mini_dungeon"),
             new MiniDungeonFeature(DefaultFeatureConfig::deserialize)
         );
-        Feature.STRUCTURES.put(MODID + ":mini_dungeon", MINI_DUNGEON_FEATURE);
+        Feature.STRUCTURES.put(MOD_ID + ":mini_dungeon", MINI_DUNGEON_FEATURE);
 
         STONELAND_BIOME = Registry.register(
             Registry.BIOME,
-            new Identifier(MODID, "stoneland"),
+            new Identifier(MOD_ID, "stoneland"),
             new StonelandBiome()
         );
         FabricBiomes.addSpawnBiome(STONELAND_BIOME);
@@ -78,6 +76,6 @@ public class Caveman implements ModInitializer {
 
     static {
         GENERATOR_NAME = "caveman";
-        GENERATOR_ID = new Identifier(MODID, GENERATOR_NAME);
+        GENERATOR_ID = new Identifier(MOD_ID, GENERATOR_NAME);
     }
 }

@@ -16,7 +16,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 public class MiniDungeonGenerator {
-    private static final List<Identifier> DUNGEONS = Arrays.stream(Caveman.config.miniDungeons.structures)
+    private static final List<Identifier> DUNGEONS = Arrays.stream(Caveman.CONFIG.miniDungeons.structures)
         .map(Identifier::new).collect(Collectors.toList());
 
     public static void addPieces(StructureManager manager, List<StructurePiece> pieces, Random random, BlockPos pos) {
@@ -47,7 +47,7 @@ public class MiniDungeonGenerator {
             Structure structure = manager.getStructureOrBlank(this.template);
             StructurePlacementData structurePlacementData = new StructurePlacementData()
                 .setRotation(this.structureRotation)
-                .setMirrored(BlockMirror.NONE);
+                .setMirror(BlockMirror.NONE);
             this.setStructureData(structure, this.pos, structurePlacementData);
         }
 

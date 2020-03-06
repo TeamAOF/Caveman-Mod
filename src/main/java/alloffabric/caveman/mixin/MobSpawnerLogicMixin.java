@@ -25,9 +25,9 @@ public class MobSpawnerLogicMixin implements SpawnerLogicHelper {
     // Perfectly they would only be the declarations,
     // while the initialisation will happen somewhere else
     // like in a constructor
-    private boolean behaviorEnabled = Caveman.config.timedSpawners.defaultBehavior;
-    private int entitiesLimit = Caveman.config.timedSpawners.defaultEntitiesLimit;
-    private Identifier lootTable = new Identifier(Caveman.config.timedSpawners.defaultLootTable);
+    private boolean behaviorEnabled = Caveman.CONFIG.timedSpawners.defaultBehavior;
+    private int entitiesLimit = Caveman.CONFIG.timedSpawners.defaultEntitiesLimit;
+    private Identifier lootTable = new Identifier(Caveman.CONFIG.timedSpawners.defaultLootTable);
     private int spawnedEntities = 0;
 
     @Inject(method = "spawnEntity", at = @At("RETURN"))
@@ -51,8 +51,8 @@ public class MobSpawnerLogicMixin implements SpawnerLogicHelper {
     @Inject(method = "deserialize", at = @At("RETURN"))
     private void deserialize(CompoundTag outerTag, CallbackInfo info) {
         // Type 10 for CompoundTag
-        if (outerTag.contains(Caveman.MODID, 10)) {
-            CompoundTag tag = outerTag.getCompound(Caveman.MODID);
+        if (outerTag.contains(Caveman.MOD_ID, 10)) {
+            CompoundTag tag = outerTag.getCompound(Caveman.MOD_ID);
             this.behaviorEnabled = tag.getBoolean("behaviorEnabled");
             if (this.behaviorEnabled) {
                 this.entitiesLimit = tag.getInt("entitiesLimit");
@@ -71,7 +71,7 @@ public class MobSpawnerLogicMixin implements SpawnerLogicHelper {
              tag.putString("lootTable", this.lootTable.toString());
              tag.putInt("spawnedEntities", this.spawnedEntities);
         }
-        outerTag.put(Caveman.MODID, tag);
+        outerTag.put(Caveman.MOD_ID, tag);
     }
 
     @Override

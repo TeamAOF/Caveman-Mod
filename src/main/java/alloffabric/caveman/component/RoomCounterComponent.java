@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import alloffabric.caveman.Caveman;
 
 public class RoomCounterComponent implements IntComponent, WorldSyncedComponent {
-    public static final Identifier ID = new Identifier(Caveman.MODID, "room_counter");
+    public static final Identifier ID = new Identifier(Caveman.MOD_ID, "room_counter");
 
     private final World world;
     private int value = 0;

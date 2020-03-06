@@ -1,10 +1,6 @@
 package alloffabric.caveman;
 
-import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
-
-@Config(name = Caveman.MODID)
-public class CavemanConfig implements ConfigData {
+public class CavemanConfig {
     public VanillaTweaks vanillaTweaks = new VanillaTweaks();
     public PlayerRooms playerRooms = new PlayerRooms();
     public TimedSpawners timedSpawners = new TimedSpawners();
