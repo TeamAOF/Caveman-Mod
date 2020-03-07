@@ -4,11 +4,13 @@ import alloffabric.caveman.component.IntComponent;
 import alloffabric.caveman.command.TimedSpawnerCommand;
 import alloffabric.caveman.component.RoomCounterComponent;
 import alloffabric.caveman.mixin.LevelGeneratorTypeAccessor;
+import alloffabric.caveman.structure.MacroDungeonGenerator;
 import alloffabric.caveman.structure.MiniDungeonGenerator;
 import alloffabric.caveman.world.biome.StonelandBiome;
 import alloffabric.caveman.world.chunk.CavemanChunkGenerator;
 import alloffabric.caveman.world.chunk.CavemanChunkGeneratorConfig;
 import alloffabric.caveman.world.chunk.FabricChunkGeneratorType;
+import alloffabric.caveman.world.feature.MacroDungeonFeature;
 import alloffabric.caveman.world.feature.MiniDungeonFeature;
 import nerdhub.cardinal.components.api.ComponentRegistry;
 import nerdhub.cardinal.components.api.ComponentType;
@@ -36,6 +38,8 @@ public class Caveman implements ModInitializer {
     public static CavemanConfig CONFIG;
     public static StructurePieceType MINI_DUNGEON_PIECE;
     public static StructureFeature<DefaultFeatureConfig> MINI_DUNGEON_FEATURE;
+    public static StructurePieceType MACRO_DUNGEON_PIECE;
+    public static StructureFeature<DefaultFeatureConfig> MACRO_DUNGEON_FEATURE;
     public static StonelandBiome STONELAND_BIOME;
 
     @Override
@@ -65,6 +69,18 @@ public class Caveman implements ModInitializer {
             new MiniDungeonFeature(DefaultFeatureConfig::deserialize)
         );
         Feature.STRUCTURES.put(MOD_ID + ":mini_dungeon", MINI_DUNGEON_FEATURE);
+
+        MACRO_DUNGEON_PIECE = Registry.register(
+            Registry.STRUCTURE_PIECE,
+            new Identifier(MOD_ID, "macro_dungeon"),
+            MacroDungeonGenerator.Piece::new
+        );
+        MACRO_DUNGEON_FEATURE = Registry.register(
+            Registry.STRUCTURE_FEATURE,
+            new Identifier(MOD_ID, "macro_dungeon"),
+            new MacroDungeonFeature(DefaultFeatureConfig::deserialize)
+        );
+        Feature.STRUCTURES.put(MOD_ID + ":mini_dungeon", MACRO_DUNGEON_FEATURE);
 
         STONELAND_BIOME = Registry.register(
             Registry.BIOME,

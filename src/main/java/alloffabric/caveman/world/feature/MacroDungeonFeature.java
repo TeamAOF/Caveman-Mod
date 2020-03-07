@@ -23,12 +23,12 @@ public class MacroDungeonFeature extends StructureFeature<DefaultFeatureConfig> 
 
     @Override
     public boolean shouldStartAt(BiomeAccess biomeAccess, ChunkGenerator<?> generator, Random random, int chunkX, int chunkZ, Biome biome) {
-        return random.nextDouble() < 0.1; //Caveman.CONFIG.miniDungeons.commonness;
+        return random.nextDouble() < 0.005; //Caveman.CONFIG.macroDungeons.rarity;
     }
 
     @Override
     public StructureStartFactory getStructureStartFactory() {
-        return MiniDungeonFeature.Start::new;
+        return Start::new;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class MacroDungeonFeature extends StructureFeature<DefaultFeatureConfig> 
 
     @Override
     public int getRadius() {
-        return 5;
+        return 10;
     }
 
     public static class Start extends VillageStructureStart {
