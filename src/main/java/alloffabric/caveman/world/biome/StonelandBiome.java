@@ -54,14 +54,12 @@ public class StonelandBiome extends Biome {
             .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
         );
 
-        this.addStructureFeature(Feature.MINESHAFT.configure(new MineshaftFeatureConfig(
-            0.016 * Caveman.CONFIG.vanillaTweaks.mineshaftsCommonness,
-            MineshaftFeature.Type.NORMAL
-        )));
         this.addStructureFeature(Feature.STRONGHOLD.configure(FeatureConfig.DEFAULT));
+        this.addFeature(GenerationStep.Feature.UNDERGROUND_STRUCTURES, Feature.STRONGHOLD
+            .configure(FeatureConfig.DEFAULT)
+            .createDecoratedFeature(Decorator.NOPE.configure(DecoratorConfig.DEFAULT))
+        );
 
-        DefaultBiomeFeatures.addDefaultStructures(this);
-        DefaultBiomeFeatures.addDungeons(this);
         DefaultBiomeFeatures.addFossils(this);
         DefaultBiomeFeatures.addMineables(this);
 
