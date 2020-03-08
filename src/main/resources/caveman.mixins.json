@@ -7,7 +7,8 @@
     "LevelGeneratorTypeMixin",
     "MobSpawnerLogicMixin",
     "OverworldDimensionMixin",
-    "PlayerManagerMixin"
+    "PlayerManagerMixin",
+    "SinglePoolElementMixin"
   ],
   "injectors": {
     "defaultRequire": 1

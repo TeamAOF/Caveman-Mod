@@ -1,6 +1,7 @@
 package alloffabric.caveman.structure;
 
 import alloffabric.caveman.Caveman;
+import alloffabric.caveman.structure.processor.NoIgnoreAirProcessor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.CompoundTag;
@@ -41,7 +42,10 @@ public class MacroDungeonGenerator {
             new Identifier(MOD_ID, "macro_dungeon/lobby"),
             new Identifier("empty"),
             ImmutableList.of(
-                Pair.of(new SinglePoolElement(MOD_ID + ":macro_dungeon/x_intersection/lit"), 1)
+                Pair.of(new SinglePoolElement(
+                    MOD_ID + ":macro_dungeon/x_intersection/lit",
+                    ImmutableList.of(NoIgnoreAirProcessor.INSTANCE)
+                ), 1)
             ),
             StructurePool.Projection.RIGID
         ));
@@ -50,7 +54,10 @@ public class MacroDungeonGenerator {
             new Identifier(MOD_ID, "macro_dungeon/hallways"),
             new Identifier("empty"),
             ImmutableList.of(
-                Pair.of(new SinglePoolElement(MOD_ID + ":macro_dungeon/hallway/default"), 5),
+                Pair.of(new SinglePoolElement(
+                    MOD_ID + ":macro_dungeon/hallway/default",
+                    ImmutableList.of(NoIgnoreAirProcessor.INSTANCE)
+                ), 5),
                 Pair.of(new SinglePoolElement(MOD_ID + ":macro_dungeon/hallway/lit"), 2),
                 Pair.of(new SinglePoolElement(MOD_ID + ":macro_dungeon/hallway/ominous"), 1)
             ),

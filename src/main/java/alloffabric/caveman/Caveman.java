@@ -6,6 +6,7 @@ import alloffabric.caveman.component.RoomCounterComponent;
 import alloffabric.caveman.mixin.LevelGeneratorTypeAccessor;
 import alloffabric.caveman.structure.MacroDungeonGenerator;
 import alloffabric.caveman.structure.MiniDungeonGenerator;
+import alloffabric.caveman.structure.processor.NoIgnoreAirProcessor;
 import alloffabric.caveman.world.biome.StonelandBiome;
 import alloffabric.caveman.world.chunk.CavemanChunkGenerator;
 import alloffabric.caveman.world.chunk.CavemanChunkGeneratorConfig;
@@ -19,11 +20,17 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biomes.v1.FabricBiomes;
 import net.fabricmc.fabric.api.registry.CommandRegistry;
 import net.minecraft.structure.StructurePieceType;
+import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.chunk.ChunkGeneratorType;
+import net.minecraft.world.gen.decorator.Decorator;
+import net.minecraft.world.gen.decorator.DecoratorConfig;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.FeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.level.LevelGeneratorType;
 
@@ -40,6 +47,7 @@ public class Caveman implements ModInitializer {
     public static StructureFeature<DefaultFeatureConfig> MINI_DUNGEON_FEATURE;
     public static StructurePieceType MACRO_DUNGEON_PIECE;
     public static StructureFeature<DefaultFeatureConfig> MACRO_DUNGEON_FEATURE;
+    public static StructureProcessorType NO_IGNORE_AIR_STRUCTURE_PROCESSOR;
     public static StonelandBiome STONELAND_BIOME;
 
     @Override
@@ -57,6 +65,12 @@ public class Caveman implements ModInitializer {
                 .attach(WorldComponentCallback.EVENT, RoomCounterComponent::new);
 
         CommandRegistry.INSTANCE.register(false, TimedSpawnerCommand::register);
+
+        NO_IGNORE_AIR_STRUCTURE_PROCESSOR = Registry.register(
+            Registry.STRUCTURE_PROCESSOR,
+            new Identifier(MOD_ID, "no_ignore_air"),
+            dynamic -> NoIgnoreAirProcessor.INSTANCE
+        );
 
         MINI_DUNGEON_PIECE = Registry.register(
             Registry.STRUCTURE_PIECE,
