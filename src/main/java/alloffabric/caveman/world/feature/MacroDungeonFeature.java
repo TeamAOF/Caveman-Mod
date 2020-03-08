@@ -1,20 +1,20 @@
 package alloffabric.caveman.world.feature;
 
-import alloffabric.caveman.Caveman;
 import alloffabric.caveman.structure.MacroDungeonGenerator;
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.structure.StructureManager;
-import net.minecraft.structure.VillageStructureStart;
+import net.minecraft.structure.StructureStart;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.AbstractTempleFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 
 import java.util.function.Function;
+
+import static alloffabric.caveman.util.IdentifierUtil.idString;
 
 public class MacroDungeonFeature extends AbstractTempleFeature<DefaultFeatureConfig> {
     public MacroDungeonFeature(Function<Dynamic<?>, ? extends DefaultFeatureConfig> configFactory) {
@@ -33,34 +33,29 @@ public class MacroDungeonFeature extends AbstractTempleFeature<DefaultFeatureCon
 
     @Override
     public String getName() {
-        return Caveman.MOD_ID + ":macro_dungeon";
+        return idString("macro_dungeon");
     }
 
     @Override
     public int getRadius() {
-        return 10;
+        return 12;
     }
 
-    public static class Start extends VillageStructureStart {
+    public static class Start extends StructureStart {
         public Start(StructureFeature<?> structureFeature, int chunkX, int chunkZ, BlockBox blockBox, int i, long l) {
             super(structureFeature, chunkX, chunkZ, blockBox, i, l);
         }
 
         public void initialize(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int x, int z, Biome biome) {
-            int i = x * 16;
-            int j = z * 16;
             MacroDungeonGenerator.addPieces(
                 chunkGenerator,
                 structureManager,
-                new BlockPos(
-                    i + this.random.nextInt(16),
-                    10 + this.random.nextInt(230),
-                    j + this.random.nextInt(16)
-                ),
+                new BlockPos(x * 16, chunkGenerator.getMaxY(), z * 16),
                 this.children,
                 this.random
             );
             this.setBoundingBoxFromChildren();
+            this.method_14978(chunkGenerator.getMaxY(), this.random, 0);
         }
     }
 }

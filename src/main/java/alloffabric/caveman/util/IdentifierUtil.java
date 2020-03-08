@@ -9,7 +9,7 @@ public class IdentifierUtil {
         return new Identifier(MOD_ID, id);
     }
 
-    public static String stringId(String id) {
+    public static String idString(String id) {
         return id(id).toString();
     }
 }

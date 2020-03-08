@@ -26,8 +26,19 @@ public class MacroDungeonGenerator {
     public static void addPieces(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, BlockPos pos, List<StructurePiece> pieces, ChunkRandom random) {
         StructurePoolBasedGenerator.addPieces(
             id("macro_dungeon/lobby"),
-            8,
-            Piece::new,
+            10,
+            (StructureManager manager,
+             StructurePoolElement element,
+             BlockPos piecePos,
+             int groundLevelDelta,
+             BlockRotation rotation,
+             BlockBox boundingBox
+            ) -> {
+                if (element instanceof NormalizedPoolElement) {
+                    rotation = ((NormalizedPoolElement) element).rotatable ? rotation : BlockRotation.NONE;
+                }
+                return new Piece(manager, element, piecePos, groundLevelDelta, rotation, boundingBox);
+            },
             chunkGenerator,
             structureManager,
             pos,
@@ -58,7 +69,7 @@ public class MacroDungeonGenerator {
         ));
 
         StructurePoolBasedGenerator.REGISTRY.add(new StructurePool(
-            id("macro_dungeon/stairways/up"),
+            id("macro_dungeon/stairways/down"),
             new Identifier("empty"),
             ImmutableList.of(
                 // Hallways
@@ -78,7 +89,7 @@ public class MacroDungeonGenerator {
         ));
 
         StructurePoolBasedGenerator.REGISTRY.add(new StructurePool(
-            id("macro_dungeon/stairways/down"),
+            id("macro_dungeon/stairways/up"),
             new Identifier("empty"),
             ImmutableList.of(
                 // Hallways
