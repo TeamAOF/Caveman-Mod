@@ -6,7 +6,6 @@ import alloffabric.caveman.component.RoomCounterComponent;
 import alloffabric.caveman.mixin.LevelGeneratorTypeAccessor;
 import alloffabric.caveman.structure.MacroDungeonGenerator;
 import alloffabric.caveman.structure.MiniDungeonGenerator;
-import alloffabric.caveman.structure.pool.NormalizedPoolElement;
 import alloffabric.caveman.world.biome.StonelandBiome;
 import alloffabric.caveman.world.chunk.CavemanChunkGenerator;
 import alloffabric.caveman.world.chunk.CavemanChunkGeneratorConfig;
@@ -20,7 +19,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biomes.v1.FabricBiomes;
 import net.fabricmc.fabric.api.registry.CommandRegistry;
 import net.minecraft.structure.StructurePieceType;
-import net.minecraft.structure.pool.StructurePoolElementType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.chunk.ChunkGeneratorType;
@@ -28,8 +26,6 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.level.LevelGeneratorType;
-
-import static alloffabric.caveman.util.IdentifierUtil.id;
 
 
 public class Caveman implements ModInitializer {
@@ -40,7 +36,6 @@ public class Caveman implements ModInitializer {
     public static ChunkGeneratorType<CavemanChunkGeneratorConfig, CavemanChunkGenerator> CHUNK_GEN_TYPE;
     public static ComponentType<IntComponent> ROOM_COUNTER;
     public static CavemanConfig CONFIG;
-    public static StructurePoolElementType NORMALIZED_POOL_ELEMENT;
     public static StructurePieceType MINI_DUNGEON_PIECE;
     public static StructureFeature<DefaultFeatureConfig> MINI_DUNGEON_FEATURE;
     public static StructurePieceType MACRO_DUNGEON_PIECE;
@@ -62,12 +57,6 @@ public class Caveman implements ModInitializer {
                 .attach(WorldComponentCallback.EVENT, RoomCounterComponent::new);
 
         CommandRegistry.INSTANCE.register(false, TimedSpawnerCommand::register);
-
-        NORMALIZED_POOL_ELEMENT = Registry.register(
-            Registry.STRUCTURE_POOL_ELEMENT,
-            id("normalized_pool_element"),
-            NormalizedPoolElement::new
-        );
 
         MINI_DUNGEON_PIECE = Registry.register(
             Registry.STRUCTURE_PIECE,
