@@ -6,7 +6,6 @@
     "LevelGeneratorTypeAccessor",
     "LevelGeneratorTypeMixin",
     "MobSpawnerLogicMixin",
-    "OverworldDimensionMixin",
     "PlayerManagerMixin"
   ],
   "injectors": {

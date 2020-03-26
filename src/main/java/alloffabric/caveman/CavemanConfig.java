@@ -1,14 +1,12 @@
 package alloffabric.caveman;
 
+import io.github.cottonmc.config.annotations.ConfigFile;
+
+@ConfigFile(name = Caveman.MOD_ID)
 public class CavemanConfig {
-    public VanillaTweaks vanillaTweaks = new VanillaTweaks();
     public PlayerRooms playerRooms = new PlayerRooms();
     public TimedSpawners timedSpawners = new TimedSpawners();
     public MiniDungeons miniDungeons = new MiniDungeons();
-
-    public static class VanillaTweaks {
-        public double mineshaftsCommonness = 0.25;
-    }
 
     public static class PlayerRooms {
         public int spacing = 1000;

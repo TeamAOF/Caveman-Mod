@@ -14,6 +14,7 @@ minecraft {
 }
 
 repositories {
+	mavenLocal()
 	maven {
 		name = "Onyx Studios"
 		url = "https://maven.onyxstudios.dev"
@@ -39,15 +40,18 @@ dependencies {
 	include "com.github.OnyxStudios.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
 	include "com.github.OnyxStudios.Cardinal-Components-API:cardinal-components-world:${project.cardinal_version}"
 
-	modImplementation "com.github.falseresync:structure-helpers:patch-1-SNAPSHOT"
-	include "com.github.falseresync:structure-helpers:patch-1-SNAPSHOT"
+//	modImplementation "robosky.mods:structure-helpers:latest.release"
+//	include "robosky.mods:structure-helpers:latest.release"
 
-	modImplementation "io.github.cottonmc:Jankson-Fabric:${project.jankson_version}"
-	include "io.github.cottonmc:Jankson-Fabric:${project.jankson_version}"
+	modImplementation "com.github.falseresync:CottonConfig:${project.cotton_config_version}"
+	include "com.github.falseresync:CottonConfig:${project.cotton_config_version}"
 
-	modRuntime "io.github.prospector:modmenu:${project.modmenu_version}"
+	modRuntime ("io.github.prospector:modmenu:${project.modmenu_version}") {
+		exclude group: "net.fabricmc.fabric-api", module: "fabric-api"
+	}
 	modRuntime ("me.shedaniel:RoughlyEnoughItems:${project.rei_version}") {
 		exclude group: "io.github.prospector", module: "modmenu"
+		exclude group: "net.fabricmc.fabric-api", module: "fabric-api"
 	}
 }
 

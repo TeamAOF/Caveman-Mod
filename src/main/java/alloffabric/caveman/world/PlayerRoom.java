@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import alloffabric.caveman.Caveman;
 import alloffabric.caveman.component.IntComponent;
+import net.minecraft.world.dimension.DimensionType;
 
 public class PlayerRoom {
     public static void create(ServerPlayerEntity player, ServerWorld world) {
@@ -42,7 +43,7 @@ public class PlayerRoom {
                 10, // => radius = 33 - it
                 player.getEntityId()
         );
-        player.setPlayerSpawn(pos, true, false);
+        player.setSpawnPoint(DimensionType.OVERWORLD, pos, true, false);
         player.networkHandler.requestTeleport(
                 pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, player.yaw, player.pitch);
     }

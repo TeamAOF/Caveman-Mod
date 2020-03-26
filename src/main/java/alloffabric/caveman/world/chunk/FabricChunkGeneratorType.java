@@ -17,7 +17,7 @@ package alloffabric.caveman.world.chunk;
 
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
@@ -59,7 +59,7 @@ public final class FabricChunkGeneratorType<C extends ChunkGeneratorConfig, T ex
      * @param config ChunkGenerator config instance
      */
     @Override
-    public T create(World world, BiomeSource biomeSource, C config) {
+    public T create(IWorld world, BiomeSource biomeSource, C config) {
         return factory.create(world, biomeSource, config);
     }
 
@@ -71,6 +71,6 @@ public final class FabricChunkGeneratorType<C extends ChunkGeneratorConfig, T ex
      */
     @FunctionalInterface
     public interface FabricChunkGeneratorFactory<C extends ChunkGeneratorConfig, T extends ChunkGenerator<C>> {
-        T create(World world, BiomeSource source, C config);
+        T create(IWorld world, BiomeSource source, C config);
     }
 }

@@ -3,6 +3,7 @@ package alloffabric.caveman.world.chunk;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.IWorld;
@@ -58,6 +59,16 @@ public class CavemanChunkGenerator extends ChunkGenerator<CavemanChunkGeneratorC
                 heightmap.trackUpdate(x, 255, z, bedrock);
             }
         }
+    }
+
+    @Override
+    public int getHeight(int x, int z, Heightmap.Type heightmapType) {
+        return 0;
+    }
+
+    @Override
+    public BlockView getColumnSample(int x, int z) {
+        return null;
     }
 
     @Override
