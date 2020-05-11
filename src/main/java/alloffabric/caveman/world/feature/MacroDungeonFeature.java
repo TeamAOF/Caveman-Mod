@@ -8,6 +8,7 @@ import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 import net.minecraft.world.gen.feature.AbstractTempleFeature;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
@@ -22,7 +23,7 @@ public class MacroDungeonFeature extends AbstractTempleFeature<DefaultFeatureCon
     }
 
     @Override
-    protected int getSeedModifier() {
+    protected int getSeedModifier(ChunkGeneratorConfig config) {
         return 0;
     }
 
@@ -46,7 +47,7 @@ public class MacroDungeonFeature extends AbstractTempleFeature<DefaultFeatureCon
             super(structureFeature, chunkX, chunkZ, blockBox, i, l);
         }
 
-        public void initialize(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int x, int z, Biome biome) {
+        public void init(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int x, int z, Biome biome) {
             MacroDungeonGenerator.addPieces(
                 chunkGenerator,
                 structureManager,

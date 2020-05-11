@@ -7,8 +7,10 @@ import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.source.BiomeAccess;
+import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
@@ -22,7 +24,7 @@ public class MiniDungeonFeature extends StructureFeature<DefaultFeatureConfig> {
     }
 
     @Override
-    public boolean shouldStartAt(BiomeAccess biomeAccess, ChunkGenerator<?> generator, Random random, int chunkX, int chunkZ, Biome biome) {
+    public boolean shouldStartAt(BiomeAccess biomeAccess, ChunkGenerator<?> generator, ChunkRandom random, int chunkX, int chunkZ, Biome biome, ChunkPos pos) {
         return random.nextDouble() < 1; //Caveman.CONFIG.miniDungeons.commonness;
     }
 
@@ -46,7 +48,7 @@ public class MiniDungeonFeature extends StructureFeature<DefaultFeatureConfig> {
             super(structureFeature, chunkX, chunkZ, blockBox, i, l);
         }
 
-        public void initialize(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int x, int z, Biome biome) {
+        public void init(ChunkGenerator<?> chunkGenerator, StructureManager structureManager, int x, int z, Biome biome) {
             int i = x * 16;
             int j = z * 16;
             MiniDungeonGenerator.addPieces(

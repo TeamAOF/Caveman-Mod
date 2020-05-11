@@ -11,6 +11,7 @@ import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 public class CavemanChunkGenerator extends ChunkGenerator<CavemanChunkGeneratorConfig> {
@@ -32,7 +33,7 @@ public class CavemanChunkGenerator extends ChunkGenerator<CavemanChunkGeneratorC
     }
 
     @Override
-    public void populateNoise(IWorld world, Chunk chunk) {
+    public void populateNoise(IWorld world, StructureAccessor structureAccessor, Chunk chunk) {
         BlockState stone = Blocks.STONE.getDefaultState();
         BlockState bedrock = Blocks.BEDROCK.getDefaultState();
         Heightmap heightmap = chunk.getHeightmap(Heightmap.Type.WORLD_SURFACE_WG);

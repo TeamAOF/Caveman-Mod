@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '0.2.6-SNAPSHOT'
+	id 'fabric-loom' version '0.2.7-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -14,11 +14,6 @@ minecraft {
 }
 
 repositories {
-	mavenLocal()
-	maven {
-		name = "Onyx Studios"
-		url = "https://maven.onyxstudios.dev"
-	}
 	maven {
 		name = "JitPack"
 		url = "https://jitpack.io"
@@ -40,8 +35,8 @@ dependencies {
 	include "com.github.OnyxStudios.Cardinal-Components-API:cardinal-components-base:${project.cardinal_version}"
 	include "com.github.OnyxStudios.Cardinal-Components-API:cardinal-components-world:${project.cardinal_version}"
 
-//	modImplementation "robosky.mods:structure-helpers:latest.release"
-//	include "robosky.mods:structure-helpers:latest.release"
+	modApi "com.github.kvverti:structure-helpers:${project.structure_helpers_version}"
+	include "com.github.kvverti:structure-helpers:${project.structure_helpers_version}"
 
 	modImplementation "com.github.falseresync:CottonConfig:${project.cotton_config_version}"
 	include "com.github.falseresync:CottonConfig:${project.cotton_config_version}"

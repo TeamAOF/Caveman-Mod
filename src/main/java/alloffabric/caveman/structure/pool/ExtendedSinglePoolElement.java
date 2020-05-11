@@ -35,7 +35,8 @@ public class ExtendedSinglePoolElement extends SinglePoolElement {
     }
 
     @Override
-    protected StructurePlacementData createPlacementData(BlockRotation rotation, BlockBox box) {
-        return super.createPlacementData(rotation, box).removeProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
+    protected StructurePlacementData createPlacementData(BlockRotation rotation, BlockBox box, boolean disableJigsaws) {
+        return super.createPlacementData(rotation, box, disableJigsaws)
+            .removeProcessor(BlockIgnoreStructureProcessor.IGNORE_AIR_AND_STRUCTURE_BLOCKS);
     }
 }

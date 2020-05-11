@@ -130,7 +130,9 @@ public class MacroDungeonGenerator {
             structureManager,
             pos,
             pieces,
-            random
+            random,
+            true, // Unknown shit
+            true // Unknown shit 2
         );
     }
 

@@ -2,7 +2,7 @@ package alloffabric.caveman.world.biome;
 
 import alloffabric.caveman.Caveman;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.entity.EntityCategory;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.biome.Biomes;
@@ -12,8 +12,6 @@ import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.FeatureConfig;
-import net.minecraft.world.gen.feature.MineshaftFeature;
-import net.minecraft.world.gen.feature.MineshaftFeatureConfig;
 import net.minecraft.world.gen.surfacebuilder.SurfaceBuilder;
 
 public class StonelandBiome extends Biome {
@@ -64,8 +62,8 @@ public class StonelandBiome extends Biome {
         DefaultBiomeFeatures.addMineables(this);
 
         Biomes.PLAINS
-            .getEntitySpawnList(EntityCategory.MONSTER)
-            .forEach(spawnEntry -> this.addSpawn(EntityCategory.MONSTER, spawnEntry));
+            .getEntitySpawnList(SpawnGroup.MONSTER)
+            .forEach(spawnEntry -> this.addSpawn(SpawnGroup.MONSTER, spawnEntry));
     }
 
 }

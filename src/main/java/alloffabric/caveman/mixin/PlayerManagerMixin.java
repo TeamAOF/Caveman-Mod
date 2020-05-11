@@ -19,7 +19,7 @@ public class PlayerManagerMixin {
     private void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo info) {
         if (player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.LEAVE_GAME)) == 0) {
             ServerWorld world = player.getServerWorld();
-            LevelProperties levelProperties = world.getLevelProperties();
+            LevelProperties levelProperties = (LevelProperties) world.getLevelProperties();
             if (levelProperties.getGeneratorType() != Caveman.LEVEL_GEN_TYPE) return;
 
             PlayerRoom.create(player, world);
