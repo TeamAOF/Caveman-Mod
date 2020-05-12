@@ -4,7 +4,6 @@ import alloffabric.caveman.command.TimedSpawnerCommand;
 import alloffabric.caveman.component.IntComponent;
 import alloffabric.caveman.component.RoomCounterComponent;
 import alloffabric.caveman.mixin.LevelGeneratorTypeAccessor;
-import alloffabric.caveman.structure.MacroDungeonGenerator;
 import alloffabric.caveman.structure.MiniDungeonGenerator;
 import alloffabric.caveman.world.biome.StonelandBiome;
 import alloffabric.caveman.world.chunk.CavemanChunkGenerator;
@@ -30,6 +29,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.level.LevelGeneratorOptions;
 import net.minecraft.world.level.LevelGeneratorType;
+import robosky.structurehelpers.structure.piece.ExtendedStructurePiece;
 
 
 public class Caveman implements ModInitializer {
@@ -42,7 +42,7 @@ public class Caveman implements ModInitializer {
     public static CavemanConfig CONFIG;
     public static StructurePieceType MINI_DUNGEON_PIECE;
     public static StructureFeature<DefaultFeatureConfig> MINI_DUNGEON_FEATURE;
-    public static StructurePieceType MACRO_DUNGEON_PIECE;
+    public static ExtendedStructurePiece.Factory MACRO_DUNGEON_PIECE;
     public static StructureFeature<DefaultFeatureConfig> MACRO_DUNGEON_FEATURE;
     public static StonelandBiome STONELAND_BIOME;
 
@@ -79,7 +79,7 @@ public class Caveman implements ModInitializer {
         MACRO_DUNGEON_PIECE = Registry.register(
             Registry.STRUCTURE_PIECE,
             new Identifier(MOD_ID, "macro_dungeon"),
-            MacroDungeonGenerator.Piece::new
+            ExtendedStructurePiece.newFactory()
         );
         MACRO_DUNGEON_FEATURE = Registry.register(
             Registry.STRUCTURE_FEATURE,

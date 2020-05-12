@@ -48,7 +48,7 @@ public class MobSpawnerLogicMixin implements SpawnerLogicHelper {
         }
     }
 
-    @Inject(method = "deserialize", at = @At("RETURN"))
+    @Inject(method = "fromTag", at = @At("RETURN"))
     private void deserialize(CompoundTag outerTag, CallbackInfo info) {
         // Type 10 for CompoundTag
         if (outerTag.contains(Caveman.MOD_ID, 10)) {
@@ -62,7 +62,7 @@ public class MobSpawnerLogicMixin implements SpawnerLogicHelper {
         }
     }
 
-    @Inject(method = "serialize", at = @At("RETURN"))
+    @Inject(method = "toTag", at = @At("RETURN"))
     private void serialize(CompoundTag outerTag, CallbackInfoReturnable<CompoundTag> info) {
         CompoundTag tag = new CompoundTag();
         tag.putBoolean("behaviorEnabled", this.behaviorEnabled);
