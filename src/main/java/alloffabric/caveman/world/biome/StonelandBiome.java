@@ -19,7 +19,8 @@ public class StonelandBiome extends Biome {
         super(new Settings()
             .category(Biome.Category.PLAINS)
             .configureSurfaceBuilder(SurfaceBuilder.NOPE, SurfaceBuilder.STONE_CONFIG)
-            .depth(0.125F)
+            .depth(-300)
+            .scale(-300)
             .downfall(0)
             .effects(new BiomeEffects.Builder()
                 .waterColor(4159204)
@@ -36,7 +37,6 @@ public class StonelandBiome extends Biome {
             )))
             .parent(null)
             .precipitation(Precipitation.NONE)
-            .scale(0.05F)
             .temperature(0.8F)
         );
 
