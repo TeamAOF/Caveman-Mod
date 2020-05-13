@@ -24,7 +24,7 @@ public class PlayerRoom {
         }
 
         StructureManager manager = world.getStructureManager();
-        Structure structure = manager.getStructureOrBlank(new Identifier(Caveman.CONFIG.playerRooms.structureId));
+        Structure structure = manager.getStructureOrBlank(new Identifier(Caveman.CONFIG.playerRooms.structure));
 
         BlockPos roomPos = calculatePos(counter.getValue());
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER || counter.getValue() == 0) {

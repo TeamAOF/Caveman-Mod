@@ -10,7 +10,7 @@ public class CavemanConfig {
 
     public static class PlayerRooms {
         public int spacing = 1000;
-        public String structureId = "caveman:spawn_room";
+        public String structure = "caveman:spawn_room";
     }
 
     public static class TimedSpawners {
@@ -20,7 +20,7 @@ public class CavemanConfig {
     }
 
     public static class MiniDungeons {
-        public String[] structures = new String[] { "caveman:mini_dungeon_0" };
+        public String[] structures = new String[] { "caveman:mini_dungeons/dual_spawner_chamber" };
         public double commonness = 0.25;
     }
 }

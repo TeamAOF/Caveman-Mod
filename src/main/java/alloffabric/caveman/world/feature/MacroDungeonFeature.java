@@ -39,6 +39,7 @@ public class MacroDungeonFeature extends AbstractTempleFeature<DefaultFeatureCon
 
         pool(
             id("macro_dungeon/hallways"),
+            id("macro_dungeon/hallway/terminator"),
             ImmutableList.of(
                 element(id("macro_dungeon/hallway/default"), 6),
                 element(id("macro_dungeon/hallway/lit"), 1),
@@ -48,6 +49,7 @@ public class MacroDungeonFeature extends AbstractTempleFeature<DefaultFeatureCon
 
         pool(
             id("macro_dungeon/stairways/down"),
+            id("macro_dungeon/hallway/stairway/down/terminator"),
             ImmutableList.of(
                 // Hallways
                 element(id("macro_dungeon/hallway/stairway/up/default"), 6),
@@ -66,6 +68,7 @@ public class MacroDungeonFeature extends AbstractTempleFeature<DefaultFeatureCon
 
         pool(
             id("macro_dungeon/stairways/up"),
+            id("macro_dungeon/hallway/stairway/up/terminator"),
             ImmutableList.of(
                 // Hallways
                 element(id("macro_dungeon/hallway/stairway/down/default"), 6),
@@ -84,6 +87,7 @@ public class MacroDungeonFeature extends AbstractTempleFeature<DefaultFeatureCon
 
         pool(
             id("macro_dungeon/premises"),
+            id("macro_dungeon/hallway/terminator"),
             ImmutableList.of(
                 /* HALLWAYS */
                 // Hallways - Weight x8

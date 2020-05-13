@@ -25,7 +25,7 @@ public class MiniDungeonFeature extends StructureFeature<DefaultFeatureConfig> {
 
     @Override
     public boolean shouldStartAt(BiomeAccess biomeAccess, ChunkGenerator<?> generator, ChunkRandom random, int chunkX, int chunkZ, Biome biome, ChunkPos pos) {
-        return random.nextDouble() < 1; //Caveman.CONFIG.miniDungeons.commonness;
+        return random.nextDouble() < Caveman.CONFIG.miniDungeons.commonness;
     }
 
     @Override

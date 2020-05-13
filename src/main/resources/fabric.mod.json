@@ -9,7 +9,7 @@
   ],
   "contact": {
     "homepage": "https://github.com/AllOfFabric/Caveman-Mod",
-    "sources": "https://github.com/AllOfFabric/Caveman-Mod"
+    "issues": "https://github.com/AllOfFabric/Caveman-Mod/issues"
   },
 
   "license": "MIT",
@@ -25,12 +25,11 @@
   ],
 
   "depends": {
-    "autoconfig1u": "*",
     "cardinal-components-base": "*",
     "cardinal-components-world": "*",
-    "cloth-config2": ">=1.8",
+    "cotton-config": ">=1.1.0",
     "fabricloader": ">=0.7.2",
     "fabric": "*",
-    "minecraft": ">=1.15"
+    "minecraft": ">=1.16-"
   }
 }
