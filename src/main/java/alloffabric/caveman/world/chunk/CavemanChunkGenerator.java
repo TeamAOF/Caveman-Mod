@@ -1,79 +1,46 @@
 package alloffabric.caveman.world.chunk;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
-import net.minecraft.world.ChunkRegion;
-import net.minecraft.world.Heightmap;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.biome.source.BiomeAccess;
 import net.minecraft.world.biome.source.BiomeSource;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.StructureAccessor;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
+import net.minecraft.world.gen.chunk.SurfaceChunkGenerator;
 
-public class CavemanChunkGenerator extends ChunkGenerator<CavemanChunkGeneratorConfig> {
+public class CavemanChunkGenerator extends SurfaceChunkGenerator<CavemanChunkGeneratorConfig> {
+
     public CavemanChunkGenerator(IWorld world, BiomeSource biomeSource, CavemanChunkGeneratorConfig config) {
-        super(world, biomeSource, config);
+        super(world, biomeSource, 4, 8, 256, config, true);
     }
 
-    @Override
-    public void carve(BiomeAccess biomeAccess, Chunk chunk, GenerationStep.Carver carver) {
+    protected void sampleNoiseColumn(double[] buffer, int x, int z) {
+        this.sampleNoiseColumn(buffer, x, z, 684.412D, 684.412D, 8.555150000000001D, 4.2206D, 3, -10);
     }
 
-    @Override
-    public void buildSurface(ChunkRegion chunkRegion, Chunk chunk) {
+    //In our chunk generator, depth is the min density and scale is the max density
+    protected double[] computeNoiseRange(int x, int z) {
+
+        double scale = 0;
+        double depth = 0;
+
+        for (int x1 = -3; x1 <= 3; x1++) {
+            for (int z1 = -3; z1 <= 3; z1++) {
+                scale += this.biomeSource.getBiomeForNoiseGen(x, 63, z).getScale();
+                depth += this.biomeSource.getBiomeForNoiseGen(x, 63, z).getDepth();
+            }
+        }
+
+        scale /= 49;
+        depth /= 49;
+
+        return new double[]{depth, scale};
+    }
+
+    protected double computeNoiseFalloff(double depth, double scale, int y) {
+        //this lerps the density so most air pockets spawn near y128.
+        return MathHelper.lerp(Math.abs(y - (this.getNoiseSizeY() / 2f)) / (this.getNoiseSizeY() / 2f), depth, scale);
     }
 
     @Override
     public int getSpawnHeight() {
-        return 64;
-    }
-
-    @Override
-    public void populateNoise(IWorld world, StructureAccessor structureAccessor, Chunk chunk) {
-        BlockState stone = Blocks.STONE.getDefaultState();
-        BlockState bedrock = Blocks.BEDROCK.getDefaultState();
-        Heightmap heightmap = chunk.getHeightmap(Heightmap.Type.WORLD_SURFACE_WG);
-
-        for (int x = 0; x < 16; x++) {
-            for (int z = 0; z < 16; z++) {
-                chunk.setBlockState(new BlockPos(x, 1, z), bedrock, false);
-                heightmap.trackUpdate(x, 1, z, bedrock);
-            }
-        }
-
-        for (int x = 0; x < 16; x++) {
-            for (int y = 1; y < 255; y++) {
-                for (int z = 0; z < 16; z++) {
-                    chunk.setBlockState(new BlockPos(x, y, z), stone, false);
-                    heightmap.trackUpdate(x, y, z, stone);
-                }
-            }
-        }
-
-        for (int x = 0; x < 16; x++) {
-            for (int z = 0; z < 16; z++) {
-                chunk.setBlockState(new BlockPos(x, 255, z), bedrock, false);
-                heightmap.trackUpdate(x, 255, z, bedrock);
-            }
-        }
-    }
-
-    @Override
-    public int getHeight(int x, int z, Heightmap.Type heightmapType) {
-        return 0;
-    }
-
-    @Override
-    public BlockView getColumnSample(int x, int z) {
-        return null;
-    }
-
-    @Override
-    public int getHeightOnGround(int x, int z, Heightmap.Type heightmapType) {
         return 64;
     }
 }

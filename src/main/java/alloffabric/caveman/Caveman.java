@@ -6,9 +6,12 @@ import alloffabric.caveman.component.RoomCounterComponent;
 import alloffabric.caveman.mixin.LevelGeneratorTypeAccessor;
 import alloffabric.caveman.structure.MiniDungeonGenerator;
 import alloffabric.caveman.world.biome.StonelandBiome;
+import alloffabric.caveman.world.biome.StonelandDeadForestBiome;
+import alloffabric.caveman.world.chunk.CavemanBiomeSource;
 import alloffabric.caveman.world.chunk.CavemanChunkGenerator;
 import alloffabric.caveman.world.chunk.CavemanChunkGeneratorConfig;
 import alloffabric.caveman.world.chunk.FabricChunkGeneratorType;
+import alloffabric.caveman.world.decorator.CountFloorDecorator;
 import alloffabric.caveman.world.feature.MacroDungeonFeature;
 import alloffabric.caveman.world.feature.MiniDungeonFeature;
 import com.mojang.datafixers.Dynamic;
@@ -23,7 +26,9 @@ import net.minecraft.structure.StructurePieceType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.source.BiomeSourceType;
+import net.minecraft.world.biome.source.VanillaLayeredBiomeSourceConfig;
 import net.minecraft.world.gen.chunk.ChunkGeneratorType;
+import net.minecraft.world.gen.decorator.CountDecoratorConfig;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.StructureFeature;
@@ -45,6 +50,8 @@ public class Caveman implements ModInitializer {
     public static ExtendedStructurePiece.Factory MACRO_DUNGEON_PIECE;
     public static StructureFeature<DefaultFeatureConfig> MACRO_DUNGEON_FEATURE;
     public static StonelandBiome STONELAND_BIOME;
+    public static StonelandDeadForestBiome STONELAND_FOREST_BIOME;
+    public static CountFloorDecorator COUNT_FLOOR_DECORATOR;
 
     static {
         GENERATOR_NAME = "caveman";
@@ -54,9 +61,9 @@ public class Caveman implements ModInitializer {
     private static LevelGeneratorOptions createLevelGeneratorOptions(LevelGeneratorType generatorType, Dynamic<?> dynamic) {
         return new LevelGeneratorOptions(generatorType, dynamic, world -> CHUNK_GEN_TYPE.create(
             world,
-            BiomeSourceType.FIXED.applyConfig(BiomeSourceType.FIXED
-                .getConfig(world.getSeed())
-                .setBiome(STONELAND_BIOME)),
+            new CavemanBiomeSource(
+                    new VanillaLayeredBiomeSourceConfig(world.getSeed())
+            ),
             new CavemanChunkGeneratorConfig()));
     }
 
@@ -88,12 +95,24 @@ public class Caveman implements ModInitializer {
         );
         Feature.STRUCTURES.put(MOD_ID + ":macro_dungeon", MACRO_DUNGEON_FEATURE);
 
+        COUNT_FLOOR_DECORATOR = Registry.register(
+                Registry.DECORATOR,
+                new Identifier(MOD_ID, "count_floor"),
+                new CountFloorDecorator(CountDecoratorConfig::deserialize)
+        );
+
         STONELAND_BIOME = Registry.register(
             Registry.BIOME,
             new Identifier(MOD_ID, "stoneland"),
             new StonelandBiome()
         );
         FabricBiomes.addSpawnBiome(STONELAND_BIOME);
+
+        STONELAND_FOREST_BIOME = Registry.register(
+                Registry.BIOME,
+                new Identifier(MOD_ID, "stoneland_dead_forest"),
+                new StonelandDeadForestBiome()
+        );
 
         CHUNK_GEN_TYPE = FabricChunkGeneratorType.register(
             GENERATOR_ID,
