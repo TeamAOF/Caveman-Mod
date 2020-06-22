@@ -3,6 +3,7 @@
   "package": "dev.aofmc.caveman.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "ChunkGeneratorTypeAccessor",
     "MobSpawnerLogicMixin",
     "PlayerManagerMixin"
   ],

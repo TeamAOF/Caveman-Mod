@@ -13,9 +13,11 @@ import net.minecraft.world.biome.source.BiomeSource;
 public class CavemanBiomeSource extends BiomeSource {
     public static final Codec<CavemanBiomeSource> CODEC = RecordCodecBuilder
         .create(instance -> instance
-            .group(Codec.LONG.fieldOf("seed")
-                .stable()
-                .forGetter((CavemanBiomeSource source) -> source.seed))
+            .group(
+                Codec.LONG.fieldOf("seed")
+                    .stable()
+                    .forGetter(source -> source.seed)
+            )
             .apply(instance, instance.stable(CavemanBiomeSource::new)));
     private final long seed;
     private final BiomeLayerSampler biomeSampler;

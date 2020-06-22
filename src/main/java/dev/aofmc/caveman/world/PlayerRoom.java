@@ -28,7 +28,7 @@ public class PlayerRoom {
 
         BlockPos roomPos = calculatePos(counter.getValue());
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER || counter.getValue() == 0) {
-            structure.place(world, roomPos, new StructurePlacementData());
+            structure.place(world, roomPos, new StructurePlacementData(), world.getRandom());
             counter.increment();
         }
 
@@ -38,12 +38,12 @@ public class PlayerRoom {
 
     public static void anchorPlayer(ServerPlayerEntity player, ServerWorld world, BlockPos pos) {
         world.getChunkManager().addTicket(
-                ChunkTicketType.POST_TELEPORT,
+                ChunkTicketType.field_19347,
                 new ChunkPos(pos),
                 10, // => radius = 33 - it
                 player.getEntityId()
         );
-        player.setSpawnPoint(DimensionType.OVERWORLD, pos, true, false);
+        player.setSpawnPoint(world.getRegistryKey(), pos, true, false);
         player.networkHandler.requestTeleport(
                 pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, player.yaw, player.pitch);
     }

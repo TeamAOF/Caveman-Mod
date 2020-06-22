@@ -20,6 +20,10 @@ repositories {
 		url = 'https://dl.bintray.com/ladysnake/libs'
 	}
 	maven {
+		name = 'Earthcomputer Mods'
+		url = 'https://dl.bintray.com/earthcomputer/mods'
+	}
+	maven {
 		name = "Cotton"
 		url = "http://server.bbkr.space:8081/artifactory/libs-release/"
 	}
@@ -43,6 +47,9 @@ dependencies {
 	modApi "com.github.kvverti:structure-helpers:${project.structure_helpers_version}"
 	include "com.github.kvverti:structure-helpers:${project.structure_helpers_version}"
 
+	modImplementation "net.earthcomputer:libstructure:${project.libstructure_version}"
+	include "net.earthcomputer:libstructure:${project.libstructure_version}"
+
 	modImplementation "com.github.falseresync:CottonConfig:${project.cotton_config_version}"
 	include "com.github.falseresync:CottonConfig:${project.cotton_config_version}"
 
@@ -53,6 +60,8 @@ dependencies {
 		exclude group: "io.github.prospector", module: "modmenu"
 		exclude group: "net.fabricmc.fabric-api", module: "fabric-api"
 	}
+
+	implementation 'com.google.code.findbugs:jsr305:3.0.2'
 }
 
 processResources {

@@ -1,7 +1,7 @@
 package dev.aofmc.caveman.mixin;
 
-import dev.aofmc.caveman.Caveman;
 import dev.aofmc.caveman.world.PlayerRoom;
+import dev.aofmc.caveman.world.chunk.CavemanChunkGenerator;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -20,7 +20,9 @@ public class PlayerManagerMixin {
         if (player.getStatHandler().getStat(Stats.CUSTOM.getOrCreateStat(Stats.LEAVE_GAME)) == 0) {
             ServerWorld world = player.getServerWorld();
             LevelProperties levelProperties = (LevelProperties) world.getLevelProperties();
-            if (levelProperties.getGeneratorType() != Caveman.LEVEL_GEN_TYPE) return;
+            if (levelProperties.getGeneratorOptions().getChunkGenerator() instanceof CavemanChunkGenerator) {
+                return;
+            }
 
             PlayerRoom.create(player, world);
         }
