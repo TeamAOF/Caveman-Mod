@@ -1,10 +1,8 @@
 {
   "required": true,
-  "package": "alloffabric.caveman.mixin",
+  "package": "dev.aofmc.caveman.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "LevelGeneratorTypeAccessor",
-    "LevelGeneratorTypeMixin",
     "MobSpawnerLogicMixin",
     "PlayerManagerMixin"
   ],

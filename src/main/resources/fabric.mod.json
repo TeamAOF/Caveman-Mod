@@ -17,12 +17,16 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "alloffabric.caveman.Caveman"
+      "dev.aofmc.caveman.Caveman"
+    ],
+    "client": [
+      "dev.aofmc.caveman.CavemanClient"
     ]
   },
   "mixins": [
     "caveman.mixins.json"
   ],
+  "accessWidener": "caveman.accesswidener",
 
   "depends": {
     "cardinal-components-base": "*",
